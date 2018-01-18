@@ -9,4 +9,4 @@ class TicketShop(object):
         """Post buy request
         ticket: target Ticket object
         """
-        raise
+        raise NotImplementedError
