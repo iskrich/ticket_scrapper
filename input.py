@@ -11,7 +11,7 @@ class Input(object):
         """
         raise NotImplementedError
 
-    def get_output_mode(self):
+    def get_store(self):
         """
         return: output mode
         """

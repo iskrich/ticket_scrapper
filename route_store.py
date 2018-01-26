@@ -1,5 +1,8 @@
+import logging
+
+
 class RouteStore(object):
-    def put_route(self, route):
+    def append(self, route):
         """Put route info"""
         raise NotImplementedError
 
@@ -9,9 +12,11 @@ class RouteStore(object):
 
 
 class ConsoleStore(RouteStore):
-    routes = []
+    def __init__(self):
+        logging.getLogger().setLevel(logging.INFO)
+        self.routes = []
 
-    def put_route(self, route):
+    def append(self, route):
         """Put route on console window
         and store in temp list
         """
@@ -25,11 +30,7 @@ class ConsoleStore(RouteStore):
 
     @staticmethod
     def print_route(route):
-        date = route.date
-        start = route.start
-        finish = route.finish
-
         for ticket in route.tickets:
-            print("Route from %s to %s at %s with price %s"
-                  "\n Start at %s and finish %s" % (start, finish, date,
-                                                    ticket.price, ticket.start_time, ticket.end_time))
+            logging.info("Route from %s to %s at %s with price %s"
+                         "\n Start at %s and finish %s" % (route.start, route.finish, route.date,
+                                                           ticket.price, ticket.start_time, ticket.end_time))

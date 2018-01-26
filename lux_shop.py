@@ -1,7 +1,8 @@
-from shop import TicketShop
-import urllib2
+import requests
 from bs4 import BeautifulSoup
-from combiner.city_combiner import Ticket
+
+from city_combiner import Ticket
+from shop import TicketShop
 
 
 class LuxShop(TicketShop):
@@ -10,23 +11,22 @@ class LuxShop(TicketShop):
         request = "https://ticket.luxexpress.eu/en/trips-timetable/%s/%s?" \
                   "Date=%s&ReturnDate=&MultiHopSearchSortOrder=StartTimeAndDuration" \
                   "&CampaignCode=&Currency=CURRENCY.EUR" % (route.start, route.finish, route.date.strftime('%m-%d-%Y'))
-        req = urllib2.urlopen(request)
-        return self.__parse_response(req.read())
+        req = requests.get(request)
+        return self._parse_response(req.content)
 
 
-    def __parse_response(self, resp):
+    def _parse_response(self, resp):
         """
         :param resp: html response from lux
         :return: list of tickets
         """
         tickets = []
         soup = BeautifulSoup(resp, 'html.parser')
-        timetable = soup.findAll(True, {'class':['trips', 'trip-table', 'go-there']})[0]
+        timetable = soup.find(True, {'class':['trips', 'trip-table', 'go-there']})
         for ticket in timetable.select('div.row.trip-row.with-mar-0'):
-            start_time = ticket.select('div.col-xs-6.disp-cell.text-left')[0].select('span')[0].contents[0]
-            end_time = ticket.select('div.col-xs-6.disp-cell.text-left')[0].select('span')[1].contents[0]
-            price = ticket.select('span.amount')[0].contents[0]
-            tickets.append(Ticket(price, start_time, end_time))
-
+            start_time = ticket.select_one('div.col-xs-6.disp-cell.text-left').select('span')[0].contents[0]
+            end_time = ticket.select_one('div.col-xs-6.disp-cell.text-left').select('span')[1].contents[0]
+            price = ticket.select_one('span.amount').contents[0]
+            tickets.append(Ticket(price=price, start_time=start_time, end_time=end_time))
         return tickets
 
