@@ -21,7 +21,7 @@ class ConsoleStore(RouteStore):
         and store in temp list
         """
         self.routes.append(route)
-        self.print_route(route)
+        self.print_route(route=route)
 
     def get_all_routes(self):
         """Get all stored routes"""

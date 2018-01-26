@@ -42,4 +42,4 @@ def route_list(cities, dates):
     cities = list(set(cities))
     for item in filter(lambda x: x[0] != x[1], product(cities, repeat=2)):
         for date in dates:
-            yield Route(item[0], item[1], date)
+            yield Route(start=item[0], finish=item[1], date=date)

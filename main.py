@@ -5,8 +5,8 @@ from lux_shop import LuxShop
 
 def put_tickets(routes, store, shop):
     for route in routes:
-        route.tickets = shop.get_all_tickets(route)
-        store.append(route)
+        route.tickets = shop.get_all_tickets(route=route)
+        store.append(route=route)
 
 
 def start(input_obj):
@@ -16,7 +16,7 @@ def start(input_obj):
 
     store = input_obj.get_store()
     lux = LuxShop()
-    routes = city_combiner.route_list(input_obj.get_cities(), input_obj.get_dates())
+    routes = city_combiner.route_list(cities=input_obj.get_cities(), dates=input_obj.get_dates())
     put_tickets(routes=routes, store=store, shop=lux)
 
 if __name__ == '__main__':
