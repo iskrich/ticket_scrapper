@@ -40,6 +40,6 @@ def route_list(cities, dates):
 
     # Delete duplicates
     cities = list(set(cities))
-    for item in product(filter(lambda x: x[0] != x[1], product(cities, repeat=2))):
+    for item in filter(lambda x: x[0] != x[1], product(cities, repeat=2)):
         for date in dates:
-            yield Route(item[0][0], item[0][1], date)
+            yield Route(item[0], item[1], date)
