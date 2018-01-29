@@ -1,5 +1,5 @@
 from datetime import datetime
-from itertools import product
+from itertools import product, permutations
 
 
 class Ticket(object):
@@ -40,6 +40,5 @@ def route_list(cities, dates):
 
     # Delete duplicates
     cities = list(set(cities))
-    for item in filter(lambda x: x[0] != x[1], product(cities, repeat=2)):
-        for date in dates:
-            yield Route(start=item[0], finish=item[1], date=date)
+    for item in product(permutations(cities, 2), dates):
+        yield Route(start=item[0][0], finish=item[0][1], date=item[1])

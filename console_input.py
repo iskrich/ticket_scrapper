@@ -11,7 +11,7 @@ class ConsoleInput(Input):
         parser = argparse.ArgumentParser(description='Ticket parser')
         parser.add_argument('-c', '--cities', nargs='+', help='<Required> Input cities', required=True)
         parser.add_argument('-d', '--dates', nargs='+', help='<Required> Input dates', required=True)
-        parser.add_argument('-m', '--mode', type=str)
+        parser.add_argument('-m', '--mode', type=str, help='<Required> Input mode type', required=True)
         self.args = parser.parse_args()
 
     def get_cities(self):
@@ -24,5 +24,5 @@ class ConsoleInput(Input):
         mode_input = self.args.mode
         if mode_input == 'Console':
             return ConsoleStore()
-        elif mode_input == 'SQLLite':
+        elif mode_input == 'Db':
             return SQLLiteStore()
