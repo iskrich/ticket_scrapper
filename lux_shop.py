@@ -1,8 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from city_combiner import Ticket
-from shop import TicketShop
+from ts import Ticket, TicketShop
 
 
 class LuxShop(TicketShop):
@@ -19,7 +18,7 @@ class LuxShop(TicketShop):
         """
         tickets = []
         soup = BeautifulSoup(resp, 'html.parser')
-        timetable = soup.find({'class': ['trips', 'trip-table', 'go-there']}, recursive=True)
+        timetable = soup.find(True, {'class': ['trips', 'trip-table', 'go-there']}, recursive=True)
         for ticket in timetable.select('div.row.trip-row.with-mar-0'):
             start_time = ticket.select_one('div.col-xs-6.disp-cell.text-left').select('span')[0].contents[0]
             end_time = ticket.select_one('div.col-xs-6.disp-cell.text-left').select('span')[1].contents[0]

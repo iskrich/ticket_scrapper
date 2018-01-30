@@ -1,15 +1,5 @@
 import logging
-
-
-class RouteStore(object):
-    def append(self, route):
-        """Put route info"""
-        raise NotImplementedError
-
-    def get_all_routes(self):
-        """Get stored routes"""
-        raise NotImplementedError
-
+from ts import RouteStore
 
 class ConsoleStore(RouteStore):
     def __init__(self):

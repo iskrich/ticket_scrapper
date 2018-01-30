@@ -1,9 +1,8 @@
 import argparse
 
 from route_store import ConsoleStore
-
-from input import Input
 from sql_lite_store import SQLLiteStore
+from ts import Input
 
 
 class ConsoleInput(Input):
@@ -12,6 +11,7 @@ class ConsoleInput(Input):
         parser.add_argument('-c', '--cities', nargs='+', help='<Required> Input cities', required=True)
         parser.add_argument('-d', '--dates', nargs='+', help='<Required> Input dates', required=True)
         parser.add_argument('-m', '--mode', type=str, help='<Required> Input mode type', required=True)
+        parser.add_argument('-w', '--workers', type=int, default=1, help='Input count of workers')
         self.args = parser.parse_args()
 
     def get_cities(self):
@@ -26,3 +26,6 @@ class ConsoleInput(Input):
             return ConsoleStore()
         elif mode_input == 'Db':
             return SQLLiteStore()
+
+    def get_workers(self):
+        return self.args.workers

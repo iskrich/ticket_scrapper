@@ -16,3 +16,9 @@ class Input(object):
         return: output mode
         """
         raise NotImplementedError
+
+    def get_workers(self):
+        """
+        return: number or threads
+        """
+        raise NotImplementedError
