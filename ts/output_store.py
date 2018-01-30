@@ -8,6 +8,5 @@ def process_route(route, store, shop):
 def put_tickets(routes, store, shop, workers):
     """Simple functionality for finding and storing tickets"""
     pool = Pool(processes=workers)
-    lock = Lock()
     r = pool.map_async(func=partial(process_route, store=store, shop=shop), iterable=routes)
     r.wait()
