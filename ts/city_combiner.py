@@ -15,5 +15,5 @@ def route_list(cities, dates):
 
     # Delete duplicates
     cities = list(set(cities))
-    for item in product(permutations(cities, 2), dates):
-        yield Route(start=item[0][0], finish=item[0][1], date=item[1])
+    for cities, date in product(permutations(cities, 2), dates):
+        yield Route(start=cities[0], finish=cities[1], date=date)
